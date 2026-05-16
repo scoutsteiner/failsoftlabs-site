@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="About Fail Soft Labs and its static website experiments." />
+    <title>About | Fail Soft Labs</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Shared site header: copy this block to new pages and update aria-current on the active link. -->
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">FSL</span>
+        <span>Fail Soft Labs</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="media.html">Media</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Page intro: explain what the lab/site is and how it may evolve. -->
+      <section class="page-hero" aria-labelledby="about-title">
+        <p class="eyebrow">About the lab</p>
+        <h1 id="about-title">Built to stay editable</h1>
+        <p class="intro">
+          Fail Soft Labs is a small static website experiment with room for projects, notes, media,
+          events, and whatever the next version needs.
+        </p>
+      </section>
+
+      <!-- About details: keep this readable for non-technical editors. -->
+      <section class="section split-section" aria-labelledby="about-details-title">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 id="about-details-title">Plain files, clear sections</h2>
+        </div>
+        <p>
+          This site is intentionally small, static, and readable. It can live on GitHub Pages or
+          Cloudflare Pages as-is, while the pages can later become cast info, event listings,
+          galleries, announcements, or anything else the project needs.
+        </p>
+      </section>
+    </main>
+
+    <!-- Shared site footer: keep small utility text here. -->
+    <footer class="site-footer">
+      <p>Fail Soft Labs</p>
+      <p>Static HTML and CSS. Ready for Pages hosting.</p>
+    </footer>
+  </body>
+</html>

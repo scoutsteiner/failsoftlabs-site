@@ -5,70 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Fail Soft Labs is a personal site for experiments, notes, and small resilient tools."
+      content="Fail Soft Labs is a playful static website for projects, posts, media, and future event experiments."
     />
     <title>Fail Soft Labs</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Shared site header: copy this block to new pages and update aria-current on the active link. -->
     <header class="site-header">
-      <a class="brand" href="index.html">Fail Soft Labs</a>
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">FSL</span>
+        <span>Fail Soft Labs</span>
+      </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="#work">Work</a>
-        <a href="#notes">Notes</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="media.html">Media</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </header>
 
     <main>
+      <!-- Homepage hero: short landing-page summary for the whole site. -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Personal lab, public notebook</p>
-          <h1 id="hero-title">Small experiments in useful, resilient software.</h1>
+          <p class="eyebrow">Static site test bench</p>
+          <h1 id="hero-title">A weird little website lab with room to mutate.</h1>
           <p class="intro">
-            Fail Soft Labs is a home for projects, field notes, and half-polished ideas that are allowed
-            to become better over time.
+            Fail Soft Labs is a simple multi-page test site for projects, updates, media previews,
+            and future event-friendly layouts. Everything here is plain HTML and CSS on purpose.
           </p>
-          <a class="button" href="#work">See what is starting</a>
+          <div class="button-row">
+            <a class="button" href="projects.html">View projects</a>
+            <a class="button secondary" href="blog.html">Read updates</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="Decorative terminal preview">
+          <p class="terminal-line">boot: failsoftlabs.test</p>
+          <p class="terminal-line">mode: multipage_static</p>
+          <p class="terminal-line">status: ready_for_pages</p>
+          <p class="terminal-line blink">cursor: _</p>
         </div>
       </section>
 
-      <section class="section" id="work" aria-labelledby="work-title">
+      <!-- Homepage previews: link visitors to the full pages. -->
+      <section class="section" aria-labelledby="preview-title">
         <div class="section-heading">
-          <p class="eyebrow">Work</p>
-          <h2 id="work-title">Starting points</h2>
+          <p class="eyebrow">Start here</p>
+          <h2 id="preview-title">Site previews</h2>
+          <p>Each card points to a real static page that can grow independently over time.</p>
         </div>
-        <div class="grid">
+        <div class="card-grid">
           <article class="card">
-            <h3>Tools</h3>
-            <p>Small utilities, scripts, and systems that make repeated work calmer.</p>
+            <p class="card-label">Projects</p>
+            <h3>Prototype shelf</h3>
+            <p>Website, event page, and media gallery experiments live here.</p>
+            <a class="text-link" href="projects.html">Open projects</a>
           </article>
           <article class="card">
-            <h3>Labs</h3>
-            <p>Experiments that may become products, posts, or useful scraps for future builds.</p>
+            <p class="card-label">Blog</p>
+            <h3>Lab notes and news</h3>
+            <p>Fake posts for now, ready to become updates or announcements later.</p>
+            <a class="text-link" href="blog.html">Open blog</a>
           </article>
           <article class="card">
-            <h3>Notes</h3>
-            <p>Short observations about technology, maintenance, and designing for graceful failure.</p>
+            <p class="card-label">Media</p>
+            <h3>Signal from the archive</h3>
+            <p>Placeholder slots for posters, photos, clips, and visual experiments.</p>
+            <a class="text-link" href="media.html">Open media</a>
           </article>
         </div>
       </section>
 
-      <section class="split-section" id="notes" aria-labelledby="notes-title">
-        <div>
-          <p class="eyebrow">Notes</p>
-          <h2 id="notes-title">A site with room to change</h2>
-        </div>
+      <!-- Homepage callout: quick route to about and contact pages. -->
+      <section class="contact-cta" aria-labelledby="home-contact-title">
+        <p class="eyebrow">Next step</p>
+        <h2 id="home-contact-title">Built small so it can change fast.</h2>
         <p>
-          This first version is intentionally plain: a foundation instead of a performance. As the work
-          sharpens, this page can grow into project pages, essays, demos, or a proper lab log.
+          Learn what this lab is for, or send notes for the next version of the site.
         </p>
+        <div class="button-row">
+          <a class="button" href="about.html">About the lab</a>
+          <a class="button secondary" href="contact.html">Contact</a>
+        </div>
       </section>
     </main>
 
-    <footer class="site-footer" id="contact">
+    <!-- Shared site footer: keep small utility text here. -->
+    <footer class="site-footer">
       <p>Fail Soft Labs</p>
-      <a href="mailto:hello@failsoftlabs.com">hello@failsoftlabs.com</a>
+      <p>Static HTML and CSS. Ready for Pages hosting.</p>
     </footer>
   </body>
 </html>

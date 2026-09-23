@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#101214"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="210" cy="130" r="220" fill="#ff9c55" opacity=".25"/>
+  <circle cx="980" cy="170" r="190" fill="#6fd8e5" opacity=".16"/>
+  <rect x="80" y="86" width="180" height="94" rx="10" fill="#ff9c55"/>
+  <text x="118" y="149" font-family="Trebuchet MS, Arial, sans-serif" font-size="42" font-weight="900" fill="#101214">FSL</text>
+  <text x="80" y="300" font-family="Trebuchet MS, Arial, sans-serif" font-size="76" font-weight="900" fill="#f0f1f2">Fail Soft Labs</text>
+  <text x="84" y="378" font-family="Courier New, monospace" font-size="32" fill="#6fd8e5">&gt; useful tools / strange experiments</text>
+  <text x="84" y="440" font-family="Trebuchet MS, Arial, sans-serif" font-size="34" fill="#aeb6bf">Systems built to fail gracefully.</text>
+</svg>

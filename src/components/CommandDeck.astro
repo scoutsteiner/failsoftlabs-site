@@ -1,0 +1,35 @@
+---
+import { topics } from '../data/newsSources';
+import { getNews } from '../lib/news';
+const snapshot = await getNews();
+---
+<section class="panel command-deck" aria-labelledby="deck-title">
+  <div class="panel-heading"><div><p class="eyebrow">01 / Signal desk</p><h2 id="deck-title">Command Deck<span class="accent">_</span></h2></div><span class="small mono">Choose a frequency</span></div>
+  <p class="muted">A little less doomscroll. A little more useful.</p>
+  <div class="topic-grid">
+    {topics.map((topic, i) => <button class="topic" aria-expanded="false" aria-controls={`feed-${topic.id}`} data-topic={topic.id}><span class="topic-number">{String(i+1).padStart(2,'0')}</span><span><strong>{topic.name}</strong><small>{topic.hint}</small></span><span class="topic-plus" aria-hidden="true">+</span></button>)}
+  </div>
+  <p class="small muted snapshot">Build snapshot · <time datetime={snapshot.generated}>{new Date(snapshot.generated).toLocaleString('en-US', {timeZone:'America/New_York', dateStyle:'medium', timeStyle:'short'})} ET</time> · refreshes on rebuild</p>
+  {topics.map(topic => {
+    const feed = snapshot.topics.find(t => t.id === topic.id)!;
+    return <section class="feed" id={`feed-${topic.id}`} hidden aria-labelledby={`title-${topic.id}`}>
+      <div class="panel-heading"><h3 id={`title-${topic.id}`} tabindex="-1">{topic.name}</h3><button class="quiet" data-collapse={topic.id}>Collapse ↑</button></div>
+      {topic.id === 'safety' && <p class="small muted">Practical help with phishing, scams, identity theft, account security, privacy, sketchy apps and ads, impersonation, deepfakes, and making sense of what you see online.</p>}
+      {feed.failedSources > 0 && <p class="notice">{feed.failedSources} source(s) unavailable at build time. Other sources may still appear below.</p>}
+      {feed.items.length === 0 && <p class="muted">{topic.sources.some(s => s.url) ? 'No headlines available in this snapshot. Try the source links below.' : 'Curated resources for now. A verified news feed is still to come.'}</p>}
+      {feed.items.map(item => <article class="news-item"><p class="small muted">{item.source} · {item.published ? <time datetime={item.published}>{new Date(item.published).toLocaleString('en-US',{timeZone:'America/New_York', dateStyle:'medium',timeStyle:'short'})} ET</time> : 'Date not supplied'}</p><h4><a href={item.url} rel="noopener noreferrer" target="_blank">{item.title} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></h4>{item.description && <p>{item.description}{item.description.length === 260 ? '…' : ''}</p>}</article>)}
+      <div class="source-links"><span class="small muted">Go to source:</span>{topic.sources.map(s => <a href={s.home} target="_blank" rel="noopener noreferrer">{s.name} ↗</a>)}</div>
+    </section>;
+  })}
+  <noscript><p>Enable JavaScript to expand headlines here, or visit these sources:</p><ul>{topics.map(t => <li>{t.name}: {t.sources.map(s => <a href={s.home} target="_blank" rel="noopener noreferrer">{s.name} </a>)}</li>)}</ul></noscript>
+</section>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-topic]');
+  function collapse() { buttons.forEach(b => b.setAttribute('aria-expanded','false')); document.querySelectorAll<HTMLElement>('.feed').forEach(f => f.hidden = true); }
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const wasOpen = button.getAttribute('aria-expanded') === 'true'; collapse();
+    if (!wasOpen) { button.setAttribute('aria-expanded','true'); document.getElementById(`feed-${button.dataset.topic}`)!.hidden = false; document.getElementById(`title-${button.dataset.topic}`)?.focus({preventScroll:true}); document.getElementById(`feed-${button.dataset.topic}`)?.scrollIntoView({block:'nearest'}); }
+  }));
+  document.querySelectorAll<HTMLButtonElement>('[data-collapse]').forEach(b => b.addEventListener('click', () => { collapse(); document.querySelector<HTMLButtonElement>(`[data-topic="${b.dataset.collapse}"]`)?.focus(); }));
+  document.querySelector('.command-deck')?.addEventListener('keydown', (event) => { if ((event as KeyboardEvent).key === 'Escape') { const active = document.querySelector<HTMLButtonElement>('[data-topic][aria-expanded="true"]'); collapse(); active?.focus(); } });
+</script>

@@ -1,0 +1,16 @@
+---
+import ToolCard from '../../components/ToolCard.astro';
+import {tools} from '../../data/tools';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Tools" description="Public tools for security checks, DNS, networking, hardware support, and everyday tinkering.">
+<section class="page-hero"><p class="eyebrow">The public toolbox</p><h1>Useful things. Within reach.</h1><p class="intro">Check a record. Untangle a network. Get back to your day.</p></section>
+<div class="filter-bar"><label>Find a tool<input id="tool-search" type="search" placeholder="Try DNS, SSL, warranty…" /></label><label>Category<select id="tool-category"><option>All</option>{[...new Set(tools.map(t=>t.category))].map(c=><option>{c}</option>)}</select></label><p id="tool-count" class="small muted" role="status">{tools.length} tools</p></div>
+<div class="card-grid">{tools.map(t=><ToolCard {...t}/>)}</div><p id="no-tools" class="empty" hidden>No matching tools. Try another search or category.</p>
+<p class="small muted section">External tools open their own websites. Files or information submitted there go to that provider.</p>
+</BaseLayout>
+<script>
+const search=document.querySelector<HTMLInputElement>('#tool-search')!; const category=document.querySelector<HTMLSelectElement>('#tool-category')!;
+function filter(){let count=0;document.querySelectorAll<HTMLElement>('[data-tool]').forEach(card=>{card.hidden=!(card.dataset.tool!.includes(search.value.trim().toLowerCase())&&(category.value==='All'||category.value===card.dataset.category));if(!card.hidden)count++;});document.querySelector('#tool-count')!.textContent=`${count} tools`;document.querySelector<HTMLElement>('#no-tools')!.hidden=count>0;}
+search.addEventListener('input',filter);category.addEventListener('change',filter);
+</script>

@@ -1,0 +1,9 @@
+---
+import FacebookPage from '../../components/FacebookPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {getCollection} from 'astro:content';
+const entries=(await getCollection('projects',({data})=>!data.draft&&data.date<=new Date())).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+---
+<BaseLayout title="Lab" description="Experiments, useful projects, and Just Fix It Beth."><section class="page-hero"><p class="eyebrow">Lab / the workbench</p><h1>A place for whatever I'm working on.</h1></section>
+<section class="panel" style="max-width:760px;margin-bottom:24px"><p class="eyebrow">FSL on Facebook</p><h2>Just Fix It Beth</h2><p class="muted">Follow along with what’s happening in the lab.</p><a class="button" href="https://www.facebook.com/people/Just-Fix-It-Beth/61593414016237/" target="_blank" rel="noopener noreferrer">Visit Just Fix It Beth ↗</a><FacebookPage/><p class="small muted" style="margin-top:12px">If Facebook doesn’t load here, use the page link above.</p></section>
+<div class="card-grid section">{entries.map(p=><article class="panel"><h2><a href={`/lab/${p.id}/`}>{p.data.title}</a></h2><p>{p.data.description}</p></article>)}<article class="panel"><p class="eyebrow">Concept</p><h2>Ticket Goblin</h2><p class="muted">A terminal-styled IT support decision game.</p><a class="text-link" href="/lab/ticket-goblin/">Explore the concept →</a></article><article class="panel"><p class="eyebrow">Ready to use</p><h2>Subnet Calculator</h2><p class="muted">IPv4 networks, masks, ranges, and usable hosts.</p><a class="text-link" href="/tools/subnet-calculator/">Open calculator →</a></article></div></BaseLayout>

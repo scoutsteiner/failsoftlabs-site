@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CommandDeck from '../components/CommandDeck.astro';
+import Conditions from '../components/Conditions.astro';
+import {tools} from '../data/tools';
+import {site} from '../data/site';
+const quick=['Subnet Calculator','VirusTotal','MXToolbox','DNS Checker','Qualys SSL Labs — SSL Server Test','SecurityHeaders.com','IPinfo'];
+---
+<BaseLayout title="Fail Soft Labs" description="Daemon Slaying, Kernel Wrangling, Terminal Mischief. A friendly personal lab with news, public tools, and room to tinker.">
+<div class="moxie-banner"><img src="/images/moxie/moxie-banner-sleeping.png" width="2172" height="724" alt="Moxie sleeping on server hardware in the Fail Soft Labs lab" fetchpriority="high" /></div>
+<section class="welcome"><div><p class="eyebrow">Personal lab / public interface</p><h1>Welcome to the lab<span class="accent">.</span></h1><p class="muted">{site.tagline}</p></div><div class="lab-status mono">&gt; daemon status: mostly contained<br/>&gt; curiosity: running in the background</div></section>
+<Conditions/>
+<div class="dashboard"><CommandDeck/><aside class="sidebar" aria-label="Lab shortcuts"><section class="panel"><div class="panel-heading"><div><p class="eyebrow">02 / Reach for a tool</p><h2>The quick toolbox</h2><!-- Future Moxie pointing toward the toolbox. --></div><span class="accent mono">↗</span></div>{quick.map(name=>{const tool=tools.find(t=>t.name===name)!;return <a class="quick-link" href={tool.href} target={tool.href.startsWith('/') ? undefined : '_blank'} rel={tool.href.startsWith('/') ? undefined : 'noopener noreferrer'}>{tool.name.replace('Qualys SSL Labs — SSL Server Test','SSL Server Test')}<span>↗</span></a>;})}<a class="text-link" href="/tools/">All {tools.length} tools &amp; lookups ↗</a></section><section class="panel"><p class="eyebrow">03 / The resident rabbit</p><h2>Moxie’s corner</h2><p class="small muted">A little mischief is part of the process.</p><div class="moxie-intro"><img src="/images/moxie/moxie-chat.png" alt="Moxie, the Fail Soft Labs rabbit mascot, waving hello" loading="lazy" decoding="async" /></div><button id="lab-ping" class="quiet">Ping the lab</button><p id="ping-result" class="small mono muted" role="status" style="margin-top:12px">&gt; lab status: questionable but operational</p></section></aside></div>
+<div class="lower-grid"><section class="panel"><p class="eyebrow">04 / On the workbench</p><h2>A place for whatever I'm working on.</h2><p class="small muted">Visit the lab for experiments and updates from Just Fix It Beth.</p><a class="text-link" href="/lab/">Visit the Lab →</a></section><section class="panel"><p class="eyebrow">05 / Outside the terminal</p><h2>Photos &amp; a soundtrack.</h2><p class="small muted">Find scout.steiner on Instagram and put on the playlist.</p><a class="text-link" href="/life/">Drop into Life →</a></section></div>
+</BaseLayout>
+<script>
+const lines=['daemon status: mostly contained','kernel: probably fine','coffee dependency: unresolved','lab status: questionable but operational'];let next=0;document.querySelector('#lab-ping')?.addEventListener('click',()=>{document.querySelector('#ping-result')!.textContent=`> ${lines[next++%lines.length]}`;});
+</script>

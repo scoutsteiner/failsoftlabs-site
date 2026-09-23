@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+*.log
+*.err
+
+playwright-report/
+test-results/
+.qa/
+
+.second-pass-backup/

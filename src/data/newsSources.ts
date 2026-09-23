@@ -1,0 +1,12 @@
+export interface Source { name: string; url: string; home: string }
+export interface Topic { id: string; name: string; hint: string; sources: Source[]; perSourceLimit?: number }
+export const topics: Topic[] = [
+  {id:'philosophy', name:'Philosophy & Meaning', hint:'Mind, ethics, spirituality & being human', perSourceLimit:3, sources:[{name:'Aeon · Philosophy & culture', url:'https://aeon.co/feed.rss', home:'https://aeon.co/'}, {name:'Psyche · Mind & everyday life', url:'https://psyche.co/feed', home:'https://psyche.co/'}, {name:'On Being · Meaning & spiritual inquiry', url:'https://onbeing.org/feed/', home:'https://onbeing.org/'}, {name:'Philosophy Now', url:'https://philosophynow.org/rss', home:'https://philosophynow.org/'}, {name:'Tricycle · Buddhist perspectives', url:'https://tricycle.org/feed/', home:'https://tricycle.org/'}]},
+  {id:'ai', name:'AI', hint:'Models & machines', sources:[{name:'MIT News · AI', url:'https://news.mit.edu/rss/topic/artificial-intelligence2', home:'https://news.mit.edu/topic/artificial-intelligence2'}]},
+  {id:'tech', name:'Tech', hint:'Bits & bigger pictures', sources:[{name:'Ars Technica', url:'https://feeds.arstechnica.com/arstechnica/index', home:'https://arstechnica.com/'}]},
+  {id:'cybersecurity', name:'Cybersecurity', hint:'Patches & problems', sources:[{name:'BleepingComputer', url:'https://www.bleepingcomputer.com/feed/', home:'https://www.bleepingcomputer.com/'}]},
+  {id:'safety', name:'Digital Safety & Security', hint:'Scams, privacy & internet literacy', sources:[{name:'FTC Consumer Advice', url:'https://consumer.ftc.gov/blog/gd-rss.xml', home:'https://consumer.ftc.gov/consumer-alerts'}]},
+  {id:'science', name:'Weird Science', hint:'Strange. Still science.', sources:[{name:'ScienceDaily · Strange Science', url:'https://www.sciencedaily.com/rss/strange_offbeat.xml', home:'https://www.sciencedaily.com/news/strange_offbeat/'}]},
+  {id:'local', name:'Local / Lehigh Valley', hint:'Around the neighborhood', sources:[{name:'Lehigh Valley Public Media', url:'https://www.lehighvalleypublicmedia.org/news/rss/', home:'https://www.lehighvalleypublicmedia.org/news/'}]},
+  {id:'world', name:'World', hint:'A wider field of view', sources:[{name:'BBC World', url:'https://feeds.bbci.co.uk/news/world/rss.xml', home:'https://www.bbc.com/news/world'}, {name:'NPR World', url:'https://feeds.npr.org/1004/rss.xml', home:'https://www.npr.org/sections/world/'}]},
+];

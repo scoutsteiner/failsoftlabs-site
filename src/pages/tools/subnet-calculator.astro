@@ -1,0 +1,142 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Subnet Calculator"
+  description="Calculate IPv4 subnet masks, wildcard masks, network ranges, usable hosts, address type, and binary representation in the browser."
+>
+  <section class="page-hero compact" aria-labelledby="subnet-title">
+    <p class="eyebrow">Tool / Available</p>
+    <h1 id="subnet-title">Subnet Calculator</h1>
+    <p class="intro">IPv4 subnet math that runs entirely in your browser. No lookups, no APIs, no private network details leave the page.</p>
+  </section>
+
+  <section class="tool-workspace" aria-labelledby="calculator-title">
+    <form class="tool-form" id="subnet-form" novalidate>
+      <div class="section-heading">
+        <p class="eyebrow">Input</p>
+        <h2 id="calculator-title">Calculate a network</h2>
+      </div>
+      <label for="ip-input">IPv4 address</label>
+      <input id="ip-input" name="ip" inputmode="decimal" autocomplete="off" value="192.168.10.42" aria-describedby="ip-help" />
+      <p id="ip-help" class="field-help">Example: 192.168.10.42 or 192.168.10.42/24</p>
+
+      <label for="prefix-input">CIDR prefix or subnet mask</label>
+      <input id="prefix-input" name="prefix" inputmode="decimal" autocomplete="off" value="24" aria-describedby="prefix-help" />
+      <p id="prefix-help" class="field-help">Example: 24, /24, or 255.255.255.0</p>
+
+      <div class="button-row">
+        <button class="button" type="submit">Calculate</button>
+        <button class="button secondary" type="button" id="example-button">Use example</button>
+      </div>
+      <p class="form-error" id="subnet-error" role="alert" aria-live="polite"></p>
+    </form>
+
+    <section class="results-panel" aria-labelledby="results-title">
+      <div class="section-heading">
+        <p class="eyebrow">Output</p>
+        <h2 id="results-title">Network details</h2>
+      </div>
+      <div class="result-grid" id="results"></div>
+      <p class="special-note" id="special-note"></p>
+    </section>
+  </section>
+
+  <section class="section" aria-labelledby="subnet-notes-title">
+    <div class="section-heading">
+      <p class="eyebrow">Notes</p>
+      <h2 id="subnet-notes-title">About /31 and /32</h2>
+      <p>
+        A /31 is commonly used on point-to-point links where both addresses can be usable. A /32 identifies one single host address.
+        Older subnetting rules may describe usable hosts differently, so this calculator calls out the special case when it appears.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    import { calculateSubnet } from "../../lib/subnet";
+
+    const form = document.querySelector<HTMLFormElement>("#subnet-form");
+    const ipInput = document.querySelector<HTMLInputElement>("#ip-input");
+    const prefixInput = document.querySelector<HTMLInputElement>("#prefix-input");
+    const exampleButton = document.querySelector<HTMLButtonElement>("#example-button");
+    const results = document.querySelector<HTMLDivElement>("#results");
+    const error = document.querySelector<HTMLParagraphElement>("#subnet-error");
+    const specialNote = document.querySelector<HTMLParagraphElement>("#special-note");
+
+    const fields = [
+      ["Normalized IP", "normalizedIp"],
+      ["CIDR Prefix", "cidrPrefix"],
+      ["Subnet Mask", "subnetMask"],
+      ["Wildcard Mask", "wildcardMask"],
+      ["Network Address", "networkAddress"],
+      ["Broadcast Address", "broadcastAddress"],
+      ["First Usable", "firstUsableAddress"],
+      ["Last Usable", "lastUsableAddress"],
+      ["Total Addresses", "totalAddresses"],
+      ["Traditionally Usable Hosts", "usableHosts"],
+      ["Address Type", "addressType"],
+      ["Binary IP", "binaryIp"],
+      ["Binary Mask", "binaryMask"],
+    ] as const;
+
+    function copyValue(button: HTMLButtonElement) {
+      const value = button.dataset.copyValue ?? "";
+      navigator.clipboard?.writeText(value);
+      button.textContent = "Copied";
+      window.setTimeout(() => {
+        button.textContent = "Copy";
+      }, 1200);
+    }
+
+    function render() {
+      if (!form || !ipInput || !prefixInput || !results || !error || !specialNote) return;
+
+      try {
+        const output = calculateSubnet(ipInput.value, prefixInput.value);
+        error.textContent = "";
+        specialNote.textContent = output.specialBehavior ?? "";
+        results.innerHTML = fields
+          .map(([label, key]) => {
+            const value = String(output[key]);
+            const canCopy = !["cidrPrefix", "totalAddresses", "usableHosts", "addressType"].includes(key);
+            return `
+              <div class="result-row">
+                <span class="result-label">${label}</span>
+                <code>${value}</code>
+                ${
+                  canCopy
+                    ? `<button class="copy-button" type="button" data-copy-value="${value}" aria-label="Copy ${label}">Copy</button>`
+                    : ""
+                }
+              </div>
+            `;
+          })
+          .join("");
+
+        results.querySelectorAll<HTMLButtonElement>(".copy-button").forEach((button) => {
+          button.addEventListener("click", () => copyValue(button));
+        });
+      } catch (caught) {
+        results.innerHTML = "";
+        specialNote.textContent = "";
+        error.textContent = caught instanceof Error ? caught.message : "Unable to calculate that subnet.";
+      }
+    }
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      render();
+    });
+
+    exampleButton?.addEventListener("click", () => {
+      if (!ipInput || !prefixInput) return;
+      ipInput.value = "192.0.2.19";
+      prefixInput.value = "255.255.255.240";
+      render();
+    });
+
+    render();
+  </script>
+</BaseLayout>

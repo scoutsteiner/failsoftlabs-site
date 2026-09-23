@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The requested Fail Soft Labs page could not be found."
+>
+  <section class="hero not-found" aria-labelledby="missing-title">
+    <div class="hero-copy">
+      <p class="eyebrow">404</p>
+      <h1 id="missing-title">That route failed soft.</h1>
+      <p class="intro">The page is missing, moved, or still on the workbench.</p>
+      <div class="button-row">
+        <a class="button" href="/tools/">Open the toolbox</a>
+        <a class="button secondary" href="/">Go home</a>
+      </div>
+    </div>
+    <div class="hero-panel" aria-label="Terminal 404 preview">
+      <p class="terminal-line">lookup: requested_route</p>
+      <p class="terminal-line">result: not_found</p>
+      <p class="terminal-line">recovery: graceful</p>
+      <p class="terminal-line blink">cursor: _</p>
+    </div>
+  </section>
+</BaseLayout>

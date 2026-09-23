@@ -1,0 +1,19 @@
+---
+interface Props {
+  name: string;
+  status: string;
+  summary: string;
+  href?: string;
+}
+
+const { name, status, summary, href } = Astro.props;
+---
+
+<article class="card project-card">
+  <div>
+    <p class="card-label">{status}</p>
+    <h3>{name}</h3>
+    <p>{summary}</p>
+  </div>
+  {href && <a class="text-link" href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined} aria-label={`Open ${name} project page`}>Open project</a>}
+</article>

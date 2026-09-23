@@ -1,0 +1,22 @@
+<section class="conditions" aria-label="Lehigh Valley conditions">
+  <div><strong>LEHIGH VALLEY / PA</strong><span id="weather" class="small" role="status">Forecast loading…</span><a href="https://forecast.weather.gov/MapClick.php?lat=40.6259&lon=-75.3705" target="_blank" rel="noopener noreferrer">NWS forecast ↗</a></div>
+  <div><strong>TRAFFIC</strong><span class="small muted">Route 22 · I-78 · Route 33</span><a href="https://www.511pa.com/" target="_blank" rel="noopener noreferrer">Check 511PA ↗</a><span class="small muted">Live incidents on 511PA; no feed connected here.</span></div>
+</section>
+<noscript><p class="small muted">Open the NWS forecast above for weather in Bethlehem, PA.</p></noscript>
+<script>
+  const output = document.querySelector('#weather')!;
+  async function weather() {
+    try {
+      const get = async (url: string) => { const r = await fetch(url,{signal:AbortSignal.timeout(8000)}); if(!r.ok) throw new Error('Weather unavailable'); return r.json(); };
+      const point = await get('https://api.weather.gov/points/40.6259,-75.3705');
+      const url = new URL(point.properties.forecastHourly);
+      if(url.origin !== 'https://api.weather.gov') throw new Error('Unexpected forecast host');
+      const forecast = await get(url.href);
+      const period = forecast.properties.periods.find((p: any) => Date.parse(p.endTime) > Date.now());
+      if(!period || typeof period.temperature !== 'number') throw new Error('No forecast');
+      const hour = new Date(period.startTime).toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric'});
+      output.textContent = `${period.temperature}°${period.temperatureUnit} · ${period.shortForecast} · ${hour} ET forecast`;
+    } catch { output.textContent = 'Forecast unavailable — use NWS link'; }
+  }
+  weather();
+</script>

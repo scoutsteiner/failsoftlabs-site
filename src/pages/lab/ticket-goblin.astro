@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Ticket Goblin"
+  description="Ticket Goblin is a planned terminal-styled IT support decision game from Fail Soft Labs."
+>
+  <section class="page-hero compact" aria-labelledby="ticket-goblin-title">
+    <p class="eyebrow">Project / Concept</p>
+    <h1 id="ticket-goblin-title">Ticket Goblin</h1>
+    <p class="intro">A terminal-styled IT support decision game where increasingly strange tickets test your judgment, patience, and coffee reserves.</p>
+  </section>
+
+  <section class="project-detail" aria-label="Ticket Goblin project details">
+    <article>
+      <p class="eyebrow">Summary</p>
+      <h2>Support queue as survival system.</h2>
+      <p>Players receive odd support tickets and choose how to respond. Each choice changes the shape of the day, the health of the environment, and the technician's ability to remain a person.</p>
+    </article>
+    <article>
+      <p class="eyebrow">Problem</p>
+      <h2>Make invisible tradeoffs playable.</h2>
+      <p>The game turns IT support decisions into visible consequences: trust, stability, debt, time, and burnout all tug against each other.</p>
+    </article>
+    <article>
+      <p class="eyebrow">Technical Approach</p>
+      <h2>Structured scenarios, separate UI.</h2>
+      <p>The first playable version should keep ten ticket scenarios in JSON or structured data, with branching decisions and five possible endings rendered by a lightweight browser UI.</p>
+    </article>
+    <article>
+      <p class="eyebrow">Possible Stats</p>
+      <ul class="terminal-list">
+        <li>Client confidence</li>
+        <li>Network stability</li>
+        <li>Technical debt</li>
+        <li>Technician sanity</li>
+        <li>Billable hours</li>
+        <li>Coffee level</li>
+      </ul>
+    </article>
+    <article>
+      <p class="eyebrow">Roadmap</p>
+      <ul class="terminal-list">
+        <li>Write ten public-safe ticket scenarios.</li>
+        <li>Store scenarios separately from presentation code.</li>
+        <li>Add branching decisions with stat changes.</li>
+        <li>Create five endings based on accumulated outcomes.</li>
+        <li>Test keyboard-friendly play from start to ending.</li>
+      </ul>
+    </article>
+    <article>
+      <p class="eyebrow">Known Issues</p>
+      <h2>No game loop yet.</h2>
+      <p>This page is only the concept, status, and roadmap. The full game will come later.</p>
+    </article>
+    <article>
+      <p class="eyebrow">Changelog</p>
+      <p><strong>2026-07-22:</strong> Initial public placeholder created.</p>
+    </article>
+  </section>
+</BaseLayout>

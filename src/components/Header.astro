@@ -1,0 +1,15 @@
+---
+import { navigation } from '../data/site';
+---
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Fail Soft Labs home"><span class="brand-mark">FSL<span>_</span></span><span>FAIL SOFT <b>LABS</b><small>Curiosity, with a command line.</small></span></a>
+  <nav class="site-nav" aria-label="Main navigation">{navigation.map(item => <a href={item.href} aria-current={(item.href === '/' ? Astro.url.pathname === '/' : Astro.url.pathname.startsWith(item.href)) ? 'page' : undefined}>{item.label}</a>)}</nav>
+  <div class="header-actions"><a class="button" href="/tools/">Tools ↗</a><button id="theme-toggle" class="quiet" aria-label="Switch to light theme">Light mode</button></div>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('#theme-toggle')!;
+  function label() { const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; button.textContent = `${next === 'light' ? '☀' : '☾'} ${next[0].toUpperCase()+next.slice(1)}`; button.setAttribute('aria-label', `Switch to ${next} theme`); }
+  label();
+  button.addEventListener('click', () => { const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; document.documentElement.dataset.theme = theme; try { localStorage.setItem('fsl-theme',theme); } catch {} label(); });
+</script>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fail Soft Labs">
+  <rect width="64" height="64" rx="10" fill="#ff9c55"/>
+  <path d="M13 14h38v8H23v8h22v8H23v12H13V14Z" fill="#101214"/>
+  <path d="M45 48h7v7h-7z" fill="#6fd8e5"/>
+</svg>

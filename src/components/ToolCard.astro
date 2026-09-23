@@ -1,0 +1,5 @@
+---
+interface Props {name:string;description:string;category:string;href:string}
+const {name,description,category,href}=Astro.props;
+---
+<article class="card tool-card" data-tool={`${name} ${description} ${category}`.toLowerCase()} data-category={category}><p class="eyebrow">{category} / {href.startsWith('/') ? 'FSL utility' : 'Public tool'}</p><h3>{name}</h3><p>{description}</p><a class="text-link" href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}>Open {name} {href.startsWith('/') ? '→' : '↗'}</a></article>

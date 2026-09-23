@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="About Fail Soft Labs, an independent digital workshop for technical tools, notes, homelab projects, and experiments."
+>
+  <section class="page-hero" aria-labelledby="about-title">
+    <p class="eyebrow">About the lab</p>
+    <h1 id="about-title">A place to build things.</h1>
+    <p class="intro">Fail Soft Labs is where useful tools, technical notes, homelab ideas, and small software experiments get built in public.</p>
+  </section>
+
+  <section class="section split-section" aria-labelledby="about-details-title">
+    <div>
+      <p class="eyebrow">How it works</p>
+      <h2 id="about-details-title">Break carefully. Repair loudly.</h2>
+    </div>
+    <p>
+      The point is practical curiosity: build the thing, document what mattered, avoid leaking private infrastructure, and leave enough notes for the next person to understand the tradeoffs.
+    </p>
+  </section>
+</BaseLayout>

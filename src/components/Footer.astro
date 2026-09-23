@@ -1,0 +1,4 @@
+---
+import {site, socials} from '../data/site';
+---
+<footer class="site-footer"><div><strong>FAIL SOFT LABS<span class="accent">_</span></strong><p class="small">Mostly operated without adult supervision.</p></div><div class="footer-links">{socials.map(s => <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name} ↗</a>)}<a href={`mailto:${site.contact}`}>Contact</a></div><span class="small mono">A place for whatever I'm working on.</span></footer>

@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {site} from '../data/site';
+---
+<BaseLayout title="Contact" description="Contact Fail Soft Labs."><section class="page-hero"><p class="eyebrow">Lab inbox</p><h1>Send a signal.</h1><p class="intro">Notes, corrections, and useful tool ideas are welcome.</p><a href={`mailto:${site.contact}`}>{site.contact}</a></section></BaseLayout>

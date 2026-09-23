@@ -1,0 +1,5 @@
+---
+import {getCollection} from 'astro:content';
+export async function getStaticPaths(){return(await getCollection('projects',({data})=>!data.draft&&data.date<=new Date())).map(post=>({params:{id:post.id}}));}
+return Astro.redirect(`/lab/${Astro.params.id}/`,301);
+---
